@@ -10,7 +10,7 @@ const TradingViewWidget = () => {
     script.onload = () => {
       new window.TradingView.widget({
         container_id: "tv_chart_container",
-        symbol: "BINANCE:BTCUSDT",
+        symbol: "BINANCE:ETHUSDT",
         interval: "1",
         timezone: "Etc/UTC",
         theme: "dark",
