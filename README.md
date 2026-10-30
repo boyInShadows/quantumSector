@@ -1,36 +1,30 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# quantumSector
 
-## Getting Started
+A personal Next.js/React experiments repository by Ramtin. The current home page mounts a trading test interface with a TradingView chart and buttons for a separate localhost API. Reminder, countdown and voice-recorder experiments remain in the source but are commented out of the home page. This is an unfinished prototype, not the [Quantum](https://github.com/boyInShadows/Quantum) animated agency page or a published portfolio.
 
-First, run the development server:
+![Actual result component with synthetic zero-trade responses](docs/artifacts/showcase/desktop.png)
+
+The capture shows the running development page's result component. Responses are synthetic, with zero profit and no executed trade. The external chart constructor was stubbed during verification; the chart is outside this crop. No trading backend or exchange was contacted.
+
+## Local development
+
+Verification used Node 24.11.1 on Windows; no Node engine is declared.
 
 ```bash
+git clone https://github.com/boyInShadows/quantumSector.git
+cd quantumSector
+npm ci
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000. The page loads TradingView's third-party script. Buttons POST JSON to `http://localhost:5000/backtest` (`initial_balance:100, days:30`) and `/live` (`initial_balance:100`). This repository supplies no backend, credentials or environment-based API configuration. Those endpoint names match the separate [PyCode experiment](https://github.com/boyInShadows/PyCode/tree/master/TradingBot), but integrated operation was not verified. Inspect that service independently before running it.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Checks and current limits
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `npm ci` passed. `npm run lint` fails on five unused-variable/import errors and reports one reminder cleanup warning. `npx tsc --noEmit` fails on reminder DatePicker nullability, voice-recorder types and timer state. `npm run build` compiles the bundle but exits 1 at type validation. These gates remain enabled; production `npm start` requires a successful build first.
+- Edge verified both buttons' POST contracts and synthetic result rendering at desktop/mobile sizes. A small contrast fix gives the dark result cards an explicit white foreground; a computed-color regression failed before and passed afterward.
+- There is no automated test suite or quality CI. Real APIs, network-failure recovery, TradingView rendering, microphone/speech support, timer persistence, full accessibility and device behavior remain unverified.
 
-## Learn More
+[Home](app/page.tsx) selects the experiment; [BotTestPage](app/components/tradingTest/botTestPage.jsx) owns request/loading/result state. It assumes successful JSON with specific numeric fields, does not check HTTP status and only logs failures. Malformed responses can fail rendering. The chart loader lacks cleanup and a failure fallback. Dormant voice code does not fully manage recording/resource cleanup. These are explicit follow-up issues, not production-ready integrations.
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The labels mention both BTC and ETH; chart configuration uses ETHUSDT. No strategy quality, financial returns or live execution capability is asserted by this README.

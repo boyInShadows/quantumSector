@@ -51,7 +51,7 @@ export default function BotTestPage() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Backtest Section */}
-          <div className="bg-gray-800 p-4 rounded-lg">
+          <div className="bg-gray-800 text-white p-4 rounded-lg">
             <h2 className="text-xl font-semibold mb-4">📊 30-Day Backtest</h2>
             <button
               className={`bg-blue-600 text-white px-4 py-2 rounded w-full ${
@@ -93,7 +93,7 @@ export default function BotTestPage() {
           </div>
 
           {/* Live Trade Section */}
-          <div className="bg-gray-800 p-4 rounded-lg">
+          <div className="bg-gray-800 text-white p-4 rounded-lg">
             <h2 className="text-xl font-semibold mb-4">🔴 Live Trading</h2>
             <button
               className={`bg-red-600 text-white px-4 py-2 rounded w-full ${
@@ -143,7 +143,7 @@ export default function BotTestPage() {
 
         {/* Trade History */}
         {(backtestResult?.results?.trades || liveResult?.results?.trades) && (
-          <div className="mt-6 bg-gray-800 p-4 rounded-lg">
+          <div className="mt-6 bg-gray-800 text-white p-4 rounded-lg">
             <h2 className="text-xl font-semibold mb-4">📝 Trade History</h2>
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
